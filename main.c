@@ -77,10 +77,9 @@ void addFisrt(char str[], char Add){
     }
     str[0] = Add;
 }
-
 /*
 description : allows to convert decimal into binary  in a new string
-parameter   :
+parameter   : int number : number to converse
 return      :
 */
 void convertDicimalToBinary(int number, char bin[]){
@@ -91,11 +90,38 @@ void convertDicimalToBinary(int number, char bin[]){
         addFisrt(bin, intToChar(t));
  }
 }
+/*
+description : allows to convert decimal into octal  in a new string
+parameter   : int number : number to converse
+return      :
+*/
+void convertDicimalToOctal(int number, char octal[]){
+      int r =number;
+        while(r>0){
+        int t = r%8;
+        r /=8;
+        addFisrt(octal, intToChar(t));
+ }
+}
+/*
+description : allows to convert decimal into hexadecimal  in a new string
+parameter   : int number : number to converse
+return      :
+*/
+void convertDicimalToHexa(int number, char hexa[]){
+      int r =number;
+        while(r>0){
+        int t = r%16;
+        r /=16;
+        addFisrt(hexa, intToChar(t));
+ }
+}
+
 
 int main()
 {
     char test[] = "";
-    int test1= 123;
+    int test1= 19358;
     //digitInverse(test, chainSize(test));
    // printf(" %d est egale a %c", test1, intToChar(test1));
    convertDicimalToBinary(test1,test);
