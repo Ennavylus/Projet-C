@@ -1,0 +1,10 @@
+#ignore bin and obj directories
+bin/
+obj/
+
+#ignore 
+*.layout
+*.cbp
+*.depend
+*.exe
+*.o
