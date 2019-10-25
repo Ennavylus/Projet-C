@@ -228,25 +228,66 @@ int deciTest(char str[]){
     }
     return 1;
 }
-
-
+/*
+description :
+parameter   :
+return      :
+*/
+void whatBaseDoYouWant(){
+    printf("1. Base decimale\n");
+    printf("2. base Binaire\n");
+    printf("3. Base Octale\n");
+    printf("4. Base Hexadecimal\n");
+}
 
 int main()
 {
-    char test[] = "17053642";
-    char test2[]= "";
-    printf("%d\n", octaTest(test));
-    //digitInverse(test, chainSize(test));
-   // printf(" %d est egale a %c", test1, intToChar(test1));
-   convertDecimalToHexa(convertBinToDecimal(test),test2);
-  ////  printf("%d\n",convertHexaToDecimal(test));
+    char strBase[] = "";
+    char strResult[]= "";
+    int choice = 'y';
+    while(choice =='y'){
+        while(choice >4){
+            system("cls");
+            printf("       ____________________________\n");
+            printf("      /                           / \n");
+            printf("     /         Projet C          /\n");
+            printf("    /     Le Convertisseur      / \n");
+            printf("   /___________________________/ \n\n\n\n");
+            printf("\n");
+            printf("Bienvenue dans le convertisseur.\n\n");
+            printf("Sur quelle base numerique souhaitez vous effectuer une convertion?\n");
+            whatBaseDoYouWant();
+            scanf("%d", &choice);
+        }
+        switch(choice){
+            case 1: do{
+                        printf("Veuillez entrer le nombre decimale : ");
+                        scanf("%s",&strBase);
+                    }while(!deciTest(strBase));
 
-//    for(int i=0;i<chainSize(test);i++){
-//
-//        printf("%d   ", charToInt(test[i]));
-//    }
-   // printf("%s\n",test );
-    printf("%s\n", test2);
+                break;
+            case 2: do{
+                        printf("Veuillez entrer le nombre decimale : ");
+                        scanf("%s",&strBase);
+                    }while(!binaryTest(strBase));
+                break;
+            case 3: do{
+                        printf("Veuillez entrer le nombre decimale : ");
+                        scanf("%s",&strBase);
+                    }while(!octaTest(strBase));
+                break;
+            case 4: do{
+                        printf("Veuillez entrer le nombre decimale : ");
+                        scanf("%s",&strBase);
+                    }while(!hexaTest(strBase));
+                break;
+        }
+
+
+            printf("\n\n");
+        printf("\nSouhaitez vous recommencer? y/n \n");
+        scanf("%s", &choice);
+    }
 
     return 0;
 }
