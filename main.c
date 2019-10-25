@@ -147,7 +147,6 @@ int convertHexaToDecimal(char hexa[]){
     }
     digitInverse(hexa,chainSize(hexa));
     return nbsomme;
-
 }
 /*
 description : allows to convert octal number into Decimal
@@ -162,17 +161,30 @@ int convertOctalToDecimal(char octa[]){
     }
     digitInverse(octa,chainSize(octa));
     return nbsomme;
-
+}
+/*
+description : allows to convert binary number into Decimal
+parameter   : char bin[] : string bin to convert
+return      : retruns decimal number in base 10 of binary string
+*/
+int convertBinToDecimal(char bin[]){
+    digitInverse(bin,chainSize(bin));
+    int nbsomme = 0;
+    for(int i = 0; i<chainSize(bin);i++){
+        nbsomme += charToInt(bin[i])*(int)pow(2,i);
+    }
+    digitInverse(bin,chainSize(bin));
+    return nbsomme;
 }
 
 
 int main()
 {
-    char test[] = "5654";
+    char test[] = "10011011";
     char test2[]= "";
     //digitInverse(test, chainSize(test));
    // printf(" %d est egale a %c", test1, intToChar(test1));
-   convertDecimalToOctal(convertOctalToDecimal(test),test2);
+   convertDecimalToHexa(convertBinToDecimal(test),test2);
   //  printf("%d\n",convertHexaToDecimal(test));
 
 //    for(int i=0;i<chainSize(test);i++){
