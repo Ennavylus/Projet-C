@@ -50,6 +50,19 @@ int charToInt(char c){
     }
 }
 /*
+description : allows transforms number int into letter or number  with ASCII array
+parameter   : int c : int to transforms
+return      : the equivalent into char type
+*/
+char intToChar(int c){
+    if(c>=0 && c<10){
+        return c+= 48;
+    }
+    else if(c>9 && c<16){
+        return c+= 55;
+    }
+}
+/*
 description :
 parameter   :
 return      :
@@ -62,11 +75,13 @@ void convertDicimalToBinary(int number, char bin[]){
 int main()
 {
     char test[] = "1f3A55b";
+    int test1 = 13;
     //digitInverse(test, chainSize(test));
-    for(int i=0;i<chainSize(test);i++){
-
-        printf("%d   ", charToInt(test[i]));
-    }
+    printf(" %d est egale a %c", test1, intToChar(test1));
+//    for(int i=0;i<chainSize(test);i++){
+//
+//        printf("%d   ", charToInt(test[i]));
+//    }
 
     return 0;
 }
