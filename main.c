@@ -34,7 +34,7 @@ void digitInverse(char str[], int size){
     }
 }
 /*
-description : allows transforms number or letter char in number int with ASCII array
+description : allows transforms number or letter char into number int with ASCII array
 parameter   : char c : char to transforms
 return      : the equivalent digit
 */
@@ -50,9 +50,9 @@ int charToInt(char c){
     }
 }
 /*
-description : allows transforms number int into letter or number  with ASCII array
+description : allows transforms number int into letter or number char with ASCII array
 parameter   : int c : int to transforms
-return      : the equivalent into char type
+return      : the equivalent char type
 */
 char intToChar(int c){
     if(c>=0 && c<10){
@@ -63,21 +63,43 @@ char intToChar(int c){
     }
 }
 /*
-description :
+description : allows  to add Element in first place in array
+parameter   : char tab[] : array to work
+            : int nbToAdd : number to add
+return      : add nbToAdd in first place in array
+*/
+void addFisrt(char str[], char Add){
+    char t=str[0];
+    for(int i = 0;i<=chainSize(str); i++){
+        char f = str[i+1];
+        str[i+1] = t;
+        t = f;
+    }
+    str[0] = Add;
+}
+
+/*
+description : allows to convert decimal into binary  in a new string
 parameter   :
 return      :
 */
 void convertDicimalToBinary(int number, char bin[]){
-
-
+      int r =number;
+        while(r>0){
+        int t = r%2;
+        r /=2;
+        addFisrt(bin, intToChar(t));
+ }
 }
 
 int main()
 {
-    char test[] = "1f3A55b";
-    int test1 = 13;
+    char test[] = "";
+    int test1= 123;
     //digitInverse(test, chainSize(test));
-    printf(" %d est egale a %c", test1, intToChar(test1));
+   // printf(" %d est egale a %c", test1, intToChar(test1));
+   convertDicimalToBinary(test1,test);
+   printf("%s\n",test);
 //    for(int i=0;i<chainSize(test);i++){
 //
 //        printf("%d   ", charToInt(test[i]));
