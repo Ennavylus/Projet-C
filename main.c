@@ -54,7 +54,7 @@ parameter   : char c : char to transforms
 return      : the equivalent digit
 */
 int charToInt(char c){
-    if(c>47 && c<57){
+    if(c>47 && c<58){
         return c-= 48;
     }
     else if(c>64 && c<71){
@@ -176,16 +176,70 @@ int convertBinToDecimal(char bin[]){
     digitInverse(bin,chainSize(bin));
     return nbsomme;
 }
+/*
+description : check if string is binary
+parameter   : char str[] : string to check
+return      : retruns 1 if check is good
+*/
+int binaryTest(char str[]){
+    for(int i=0; i<chainSize(str); i++){
+        if(charToInt(str[i])>=2){
+            return 0;
+        }
+    }
+    return 1;
+}
+/*
+description : check if string is hexadecimal
+parameter   : char str[] : string to check
+return      : retruns 1 if check is good
+*/
+int hexaTest(char str[]){
+    for(int i=0; i<chainSize(str); i++){
+        if(charToInt(str[i])>=16){
+            return 0;
+        }
+    }
+    return 1;
+}
+/*
+description : check if string is octal
+parameter   : char str[] : string to check
+return      : retruns 1 if check is good
+*/
+int octaTest(char str[]){
+    for(int i=0; i<chainSize(str); i++){
+        if(charToInt(str[i])>=8){
+            return 0;
+        }
+    }
+    return 1;
+}
+/*
+description : check if string is decimal
+parameter   : char str[] : string to check
+return      : retruns 1 if check is good
+*/
+int deciTest(char str[]){
+    for(int i=0; i<chainSize(str); i++){
+        if(charToInt(str[i])>=10){
+            return 0;
+        }
+    }
+    return 1;
+}
+
 
 
 int main()
 {
-    char test[] = "10011011";
+    char test[] = "17053642";
     char test2[]= "";
+    printf("%d\n", octaTest(test));
     //digitInverse(test, chainSize(test));
    // printf(" %d est egale a %c", test1, intToChar(test1));
    convertDecimalToHexa(convertBinToDecimal(test),test2);
-  //  printf("%d\n",convertHexaToDecimal(test));
+  ////  printf("%d\n",convertHexaToDecimal(test));
 
 //    for(int i=0;i<chainSize(test);i++){
 //
