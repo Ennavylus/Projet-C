@@ -135,9 +135,9 @@ void convertDecimalToHexa(int number, char hexa[]){
     }
 }
 /*
-description : allows to convert Hexadecimal into Decimal  in a new string
+description : allows to convert Hexadecimal number into Decimal
 parameter   : char hexa[] : string hexa to convert
-return      : retruns decimal number in base 10 fo hexadecimal string
+return      : retruns decimal number in base 10 of hexadecimal string
 */
 int convertHexaToDecimal(char hexa[]){
     digitInverse(hexa,chainSize(hexa));
@@ -149,16 +149,30 @@ int convertHexaToDecimal(char hexa[]){
     return nbsomme;
 
 }
+/*
+description : allows to convert octal number into Decimal
+parameter   : char octa[] : string octa to convert
+return      : retruns decimal number in base 10 of octale string
+*/
+int convertOctalToDecimal(char octa[]){
+    digitInverse(octa,chainSize(octa));
+    int nbsomme = 0;
+    for(int i = 0; i<chainSize(octa);i++){
+        nbsomme += charToInt(octa[i])*(int)pow(8,i);
+    }
+    digitInverse(octa,chainSize(octa));
+    return nbsomme;
 
+}
 
 
 int main()
 {
-    char test[] = "DEF";
+    char test[] = "5654";
     char test2[]= "";
     //digitInverse(test, chainSize(test));
    // printf(" %d est egale a %c", test1, intToChar(test1));
-   convertDecimalToHexa(convertHexaToDecimal(test),test2);
+   convertDecimalToOctal(convertOctalToDecimal(test),test2);
   //  printf("%d\n",convertHexaToDecimal(test));
 
 //    for(int i=0;i<chainSize(test);i++){
