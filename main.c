@@ -1,10 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 /*
 description :
 parameter   :
 return      :
 */
+/*
+description : Calculate the number with the power to give
+parameter   : int a : number to calculate
+            : int b : power to affect
+retour      : Return result of 'a' power 'b'
+*/
+int power(int a, int b){
+    int r = 1;
+    for(int i = 0;i<b;i++){
+        r *=a;
+    }
+    return r;
+}
+
 /*
 description : determinate size of character chain
 parameter   : cont char str[] : chain of character
@@ -82,7 +97,7 @@ description : allows to convert decimal into binary  in a new string
 parameter   : int number : number to converse
 return      :
 */
-void convertDicimalToBinary(int number, char bin[]){
+void convertDecimalToBinary(int number, char bin[]){
       int r =number;
         while(r>0){
         int t = r%2;
@@ -95,7 +110,7 @@ description : allows to convert decimal into octal  in a new string
 parameter   : int number : number to converse
 return      :
 */
-void convertDicimalToOctal(int number, char octal[]){
+void convertDecimalToOctal(int number, char octal[]){
       int r =number;
         while(r>0){
         int t = r%8;
@@ -108,7 +123,7 @@ description : allows to convert decimal into hexadecimal  in a new string
 parameter   : int number : number to converse
 return      :
 */
-void convertDicimalToHexa(int number, char hexa[]){
+void convertDecimalToHexa(int number, char hexa[]){
       int r =number;
         while(r>0){
         int t = r%16;
@@ -117,15 +132,31 @@ void convertDicimalToHexa(int number, char hexa[]){
  }
 }
 
+int convertHexaToDecimal(char hexa[]){
+    digitInverse(hexa,chainSize(hexa));
+      int nb= 0;
+      int nbsomme = 0;
+        for(int i = 0; i<chainSize(hexa);i++){
+
+            nbsomme +=power(charToInt(hexa[i]),nb);
+            printf("%d\n",power(charToInt(hexa[i]),nb));
+        printf("%d\n",nbsomme);
+            nb++;
+    }
+return nbsomme;
+
+}
+
+
 
 int main()
 {
-    char test[] = "";
+    char test[] = "DEF";
     int test1= 19358;
     //digitInverse(test, chainSize(test));
    // printf(" %d est egale a %c", test1, intToChar(test1));
-   convertDicimalToBinary(test1,test);
-   printf("%s\n",test);
+   //convertDicimalToBinary(test1,test);
+    printf("%d\n",convertHexaToDecimal(test));
 //    for(int i=0;i<chainSize(test);i++){
 //
 //        printf("%d   ", charToInt(test[i]));
