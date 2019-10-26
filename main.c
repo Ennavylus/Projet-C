@@ -1,11 +1,38 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#define N 100
 /*
 description :
 parameter   :
 return      :
 */
+/*
+description : allows to delete character in the potision to given in array
+parameter   : int size : character element in array
+            : char str[] : array to work
+            : int pos : position to delete character
+return      : delete character in the potision to given in array
+*/
+void deletePosElement(int size, char str[], int pos){
+    for(int i = pos-1;i<size; i++){
+        str[i] = str[i+1];
+    }
+}
+/*
+description : delete all space in array and transfer in new array
+parameter   : char str[] : first string to compare
+            : char strToTest : second string to compare
+return      : the function delete all vowel and transfer in new array
+*/
+void spaceDelete(char str[]){
+    for(int i = 0;i<chainSize(str);i++){
+        if(str[i]==' '){
+            deletePosElement(chainSize(str),str, i+1);
+            i--;
+        }
+    }
+}
 /*
 description : Calculate the number with the power to give
 parameter   : int a : number to calculate
@@ -19,7 +46,6 @@ int power(int a, int b){
     }
     return r;
 }
-
 /*
 description : determinate size of character chain
 parameter   : cont char str[] : chain of character
@@ -34,6 +60,7 @@ int chainSize(const char str[]){
 }
 /*
 description : allows to have the opposite of the all number in the array in the same array
+             and delete all space character.
 parameter   : int str[]: point on the Array to work
             : int size : to define size of Array
 return      : return opposite of all the numbers in the array in the same array
@@ -47,6 +74,7 @@ void digitInverse(char str[], int size){
         str[y] = t;
         y--;
     }
+spaceDelete(str);
 }
 /*
 description : allows transforms number or letter char into number int with ASCII array
@@ -93,17 +121,41 @@ void addFisrt(char str[], char Add){
     str[0] = Add;
 }
 /*
+description : allows to convert decimal number into decimal in a new string
+parameter   : int number : number to converse
+            : char dec[] : new string to recive convert
+return      :
+*/
+void convertIntToDecimal(int number, char dec[]){
+    int r =number;
+    int maxsize =3;
+    while(r>0){
+        int t = r%10;
+        r /=10;
+        addFisrt(dec, intToChar(t));
+        if(chainSize(dec)== maxsize){
+            addFisrt(dec, ' ');
+            maxsize+=4;
+        }
+    }
+}
+/*
 description : allows to convert decimal into binary  in a new string
 parameter   : int number : number to converse
             : char bin[] : new string to recive convert
 return      :
 */
-void convertDecimalToBinary(int number, char bin[]){
+void convertIntToBinary(int number, char bin[]){
     int r =number;
+    int maxsize =4;
     while(r>0){
         int t = r%2;
         r /=2;
         addFisrt(bin, intToChar(t));
+        if(chainSize(bin)== maxsize){
+            addFisrt(bin, ' ');
+            maxsize+=5;
+        }
     }
 }
 /*
@@ -112,12 +164,17 @@ parameter   : int number : number to converse
             : char octa[] : new string to recive convert
 return      :
 */
-void convertDecimalToOctal(int number, char octal[]){
+void convertIntToOctal(int number, char octal[]){
     int r =number;
+    int maxsize =3;
     while(r>0){
         int t = r%8;
         r /=8;
         addFisrt(octal, intToChar(t));
+        if(chainSize(octal)== maxsize){
+            addFisrt(octal, ' ');
+            maxsize+=4;
+        }
     }
 }
 /*
@@ -126,20 +183,39 @@ parameter   : int number : number to converse
             : char hexa[] : new string to recive convert
 return      :
 */
-void convertDecimalToHexa(int number, char hexa[]){
+void convertIntToHexa(int number, char hexa[]){
     int r =number;
+    int maxsize =4;
     while(r>0){
         int t = r%16;
         r /=16;
         addFisrt(hexa, intToChar(t));
+        if(chainSize(hexa)== maxsize){
+            addFisrt(hexa, ' ');
+            maxsize+=5;
+        }
     }
 }
 /*
-description : allows to convert Hexadecimal number into Decimal
-parameter   : char hexa[] : string hexa to convert
-return      : retruns decimal number in base 10 of hexadecimal string
+description : allows to convert decimal number into integer numbers
+parameter   : char deci[] : string deci to convert
+return      : retruns integer numbers in base 10 of decimal string
 */
-int convertHexaToDecimal(char hexa[]){
+int convertDeciToInt(char deci[]){
+    digitInverse(deci,chainSize(deci));
+    int nbsomme = 0;
+    for(int i = 0; i<chainSize(deci);i++){
+        nbsomme += charToInt(deci[i])*(int)pow(10,i);
+    }
+    digitInverse(deci,chainSize(deci));
+    return nbsomme;
+}
+/*
+description : allows to convert Hexadecimal number into integer numbers
+parameter   : char hexa[] : string hexa to convert
+return      : retruns integer numbers in base 10 of hexadecimal string
+*/
+int convertHexaToInt(char hexa[]){
     digitInverse(hexa,chainSize(hexa));
     int nbsomme = 0;
     for(int i = 0; i<chainSize(hexa);i++){
@@ -149,11 +225,11 @@ int convertHexaToDecimal(char hexa[]){
     return nbsomme;
 }
 /*
-description : allows to convert octal number into Decimal
+description : allows to convert octal number into integer numbers
 parameter   : char octa[] : string octa to convert
-return      : retruns decimal number in base 10 of octale string
+return      : retruns integer numbers in base 10 of octale string
 */
-int convertOctalToDecimal(char octa[]){
+int convertOctalToInt(char octa[]){
     digitInverse(octa,chainSize(octa));
     int nbsomme = 0;
     for(int i = 0; i<chainSize(octa);i++){
@@ -163,13 +239,14 @@ int convertOctalToDecimal(char octa[]){
     return nbsomme;
 }
 /*
-description : allows to convert binary number into Decimal
+description : allows to convert binary number into integer numbers
 parameter   : char bin[] : string bin to convert
-return      : retruns decimal number in base 10 of binary string
+return      : retruns integer numbers in base 10 of binary string
 */
-int convertBinToDecimal(char bin[]){
+int convertBinToInt(char bin[]){
     digitInverse(bin,chainSize(bin));
     int nbsomme = 0;
+    int p = 0;
     for(int i = 0; i<chainSize(bin);i++){
         nbsomme += charToInt(bin[i])*(int)pow(2,i);
     }
@@ -177,12 +254,15 @@ int convertBinToDecimal(char bin[]){
     return nbsomme;
 }
 /*
-description : check if string is binary
+description : check if string is binary by ignoring the space
 parameter   : char str[] : string to check
 return      : retruns 1 if check is good
 */
 int binaryTest(char str[]){
     for(int i=0; i<chainSize(str); i++){
+        if(str[i]==' '){
+            i++;
+        }
         if(charToInt(str[i])>=2){
             return 0;
         }
@@ -190,12 +270,15 @@ int binaryTest(char str[]){
     return 1;
 }
 /*
-description : check if string is hexadecimal
+description : check if string is hexadecimal by ignoring the space
 parameter   : char str[] : string to check
 return      : retruns 1 if check is good
 */
 int hexaTest(char str[]){
     for(int i=0; i<chainSize(str); i++){
+        if(str[i]==' '){
+            i++;
+        }
         if(charToInt(str[i])>=16){
             return 0;
         }
@@ -203,12 +286,15 @@ int hexaTest(char str[]){
     return 1;
 }
 /*
-description : check if string is octal
+description : check if string is octal by ignoring the space
 parameter   : char str[] : string to check
 return      : retruns 1 if check is good
 */
 int octaTest(char str[]){
     for(int i=0; i<chainSize(str); i++){
+        if(str[i]==' '){
+            i++;
+        }
         if(charToInt(str[i])>=8){
             return 0;
         }
@@ -216,12 +302,15 @@ int octaTest(char str[]){
     return 1;
 }
 /*
-description : check if string is decimal
+description : check if string is decimal by ignoring the space
 parameter   : char str[] : string to check
 return      : retruns 1 if check is good
 */
 int deciTest(char str[]){
     for(int i=0; i<chainSize(str); i++){
+        if(str[i]==' '){
+            i++;
+        }
         if(charToInt(str[i])>=10){
             return 0;
         }
@@ -234,19 +323,21 @@ parameter   :
 return      :
 */
 void whatBaseDoYouWant(){
-    printf("1. Base decimale\n");
-    printf("2. base Binaire\n");
-    printf("3. Base Octale\n");
-    printf("4. Base Hexadecimal\n");
+    printf("1. Base decimale(base 10)\n");
+    printf("2. base Binaire (base 2)\n");
+    printf("3. Base Octale (base 8)\n");
+    printf("4. Base Hexadecimal (base 16)\n");
 }
 
 int main()
 {
-    char strBase[] = "";
-    char strResult[]= "";
-    int choice = 'y';
-    while(choice =='y'){
-        while(choice >4){
+    char choice = 'y';
+    char strBase[N] = "";
+    char strResult[N]= "";
+
+
+   while(choice =='y'){
+       while(choice >4){
             system("cls");
             printf("       ____________________________\n");
             printf("      /                           / \n");
@@ -257,29 +348,44 @@ int main()
             printf("Bienvenue dans le convertisseur.\n\n");
             printf("Sur quelle base numerique souhaitez vous effectuer une convertion?\n");
             whatBaseDoYouWant();
-            scanf("%d", &choice);
-        }
+            scanf(" %d", &choice);
+
+
+
+       }
         switch(choice){
             case 1: do{
                         printf("Veuillez entrer le nombre decimale : ");
-                        scanf("%s",&strBase);
+                        scanf(" %[^\n]s ",strBase);
+
                     }while(!deciTest(strBase));
+                    digitInverse(strBase,chainSize(strBase));
+                    printf("%s\n", strBase);
+                    //convertIntToBinary(convertDeciToInt(strBase),strResult);
+                    //printf("%s", strResult);
+
+
+               // break;
+            case 2: do{
+                        printf("Veuillez entrer le nombre Binaire : ");
+                        scanf(" %[^\n]s",&strBase);
+                    }while(!binaryTest(strBase));
+
+
+                    printf("%s\n", strResult);
 
                 break;
-            case 2: do{
-                        printf("Veuillez entrer le nombre decimale : ");
-                        scanf("%s",&strBase);
-                    }while(!binaryTest(strBase));
-                break;
             case 3: do{
-                        printf("Veuillez entrer le nombre decimale : ");
+                        printf("Veuillez entrer le nombre Octal : ");
                         scanf("%s",&strBase);
                     }while(!octaTest(strBase));
+
                 break;
             case 4: do{
-                        printf("Veuillez entrer le nombre decimale : ");
+                        printf("Veuillez entrer le nombre Hexadecimal : ");
                         scanf("%s",&strBase);
                     }while(!hexaTest(strBase));
+
                 break;
         }
 
@@ -288,6 +394,5 @@ int main()
         printf("\nSouhaitez vous recommencer? y/n \n");
         scanf("%s", &choice);
     }
-
     return 0;
 }
