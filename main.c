@@ -336,8 +336,8 @@ int main()
     char strResult[N]= "";
 
 
-   while(choice =='y'){
-       while(choice >4){
+   while(choice !='n'){
+      /* while(choice >4){
             system("cls");
             printf("       ____________________________\n");
             printf("      /                           / \n");
@@ -354,18 +354,18 @@ int main()
 
        }
         switch(choice){
-            case 1: do{
+            case 1:// do{
                         printf("Veuillez entrer le nombre decimale : ");
                         scanf(" %[^\n]s ",strBase);
 
-                    }while(!deciTest(strBase));
+                   // }while(!deciTest(strBase));
                     digitInverse(strBase,chainSize(strBase));
                     printf("%s\n", strBase);
                     //convertIntToBinary(convertDeciToInt(strBase),strResult);
                     //printf("%s", strResult);
 
 
-               // break;
+                break;
             case 2: do{
                         printf("Veuillez entrer le nombre Binaire : ");
                         scanf(" %[^\n]s",&strBase);
@@ -389,10 +389,14 @@ int main()
                 break;
         }
 
-
-            printf("\n\n");
+*/
+        printf("\n\n");
+       // choice = getchar();
         printf("\nSouhaitez vous recommencer? y/n \n");
-        scanf("%s", &choice);
+        choice = getch();
+
     }
+   // printf("vous avez quitte la boucle\n");
+    system("exit");
     return 0;
 }
