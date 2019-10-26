@@ -127,8 +127,10 @@ parameter   : int number : number to converse
 return      :
 */
 void convertIntToDecimal(int number, char dec[]){
+    dec[1]= '\0';
+    dec[0]= ' ';
     int r =number;
-    int maxsize =3;
+    int maxsize =4;
     while(r>0){
         int t = r%10;
         r /=10;
@@ -146,8 +148,10 @@ parameter   : int number : number to converse
 return      :
 */
 void convertIntToBinary(int number, char bin[]){
+    bin[1]= '\0';
+    bin[0]= ' ';
     int r =number;
-    int maxsize =4;
+    int maxsize =5;
     while(r>0){
         int t = r%2;
         r /=2;
@@ -165,8 +169,10 @@ parameter   : int number : number to converse
 return      :
 */
 void convertIntToOctal(int number, char octal[]){
+    octal[1]= '\0';
+    octal[0]= ' ';
     int r =number;
-    int maxsize =3;
+    int maxsize =4;
     while(r>0){
         int t = r%8;
         r /=8;
@@ -184,8 +190,10 @@ parameter   : int number : number to converse
 return      :
 */
 void convertIntToHexa(int number, char hexa[]){
+    hexa[1]= '\0';
+    hexa[0]= ' ';
     int r =number;
-    int maxsize =4;
+    int maxsize =5;
     while(r>0){
         int t = r%16;
         r /=16;
@@ -205,7 +213,7 @@ int convertDeciToInt(char deci[]){
     digitInverse(deci,chainSize(deci));
     int nbsomme = 0;
     for(int i = 0; i<chainSize(deci);i++){
-        nbsomme += charToInt(deci[i])*(int)pow(10,i);
+        nbsomme += charToInt(deci[i])*power(10,i);
     }
     digitInverse(deci,chainSize(deci));
     return nbsomme;
@@ -219,7 +227,7 @@ int convertHexaToInt(char hexa[]){
     digitInverse(hexa,chainSize(hexa));
     int nbsomme = 0;
     for(int i = 0; i<chainSize(hexa);i++){
-        nbsomme += charToInt(hexa[i])*(int)pow(16,i);
+        nbsomme += charToInt(hexa[i])*power(16,i);
     }
     digitInverse(hexa,chainSize(hexa));
     return nbsomme;
@@ -233,7 +241,7 @@ int convertOctalToInt(char octa[]){
     digitInverse(octa,chainSize(octa));
     int nbsomme = 0;
     for(int i = 0; i<chainSize(octa);i++){
-        nbsomme += charToInt(octa[i])*(int)pow(8,i);
+        nbsomme += charToInt(octa[i])*power(8,i);
     }
     digitInverse(octa,chainSize(octa));
     return nbsomme;
@@ -248,7 +256,7 @@ int convertBinToInt(char bin[]){
     int nbsomme = 0;
     int p = 0;
     for(int i = 0; i<chainSize(bin);i++){
-        nbsomme += charToInt(bin[i])*(int)pow(2,i);
+        nbsomme += charToInt(bin[i])*power(2,i);
     }
     digitInverse(bin,chainSize(bin));
     return nbsomme;
@@ -309,7 +317,9 @@ return      : retruns 1 if check is good
 int deciTest(char str[]){
     for(int i=0; i<chainSize(str); i++){
         if(str[i]==' '){
-            i++;
+            for(int j=0;j<chainSize(str);j++){
+                i++;
+            }
         }
         if(charToInt(str[i])>=10){
             return 0;
@@ -336,8 +346,8 @@ int main()
     char strResult[N]= "";
 
 
-   while(choice !='n'){
-      /* while(choice >4){
+    while(choice !='n'){
+        while((choice >'4')||(choice<'1')){
             system("cls");
             printf("       ____________________________\n");
             printf("      /                           / \n");
@@ -348,23 +358,17 @@ int main()
             printf("Bienvenue dans le convertisseur.\n\n");
             printf("Sur quelle base numerique souhaitez vous effectuer une convertion?\n");
             whatBaseDoYouWant();
-            scanf(" %d", &choice);
-
-
-
-       }
+            choice = getch();
+        }
         switch(choice){
-            case 1:// do{
+            case '1': do{
                         printf("Veuillez entrer le nombre decimale : ");
                         scanf(" %[^\n]s ",strBase);
 
-                   // }while(!deciTest(strBase));
-                    digitInverse(strBase,chainSize(strBase));
-                    printf("%s\n", strBase);
-                    //convertIntToBinary(convertDeciToInt(strBase),strResult);
-                    //printf("%s", strResult);
-
-
+                      }while(!deciTest(strBase));
+                      printf("%s\n", strBase);
+                      convertIntToBinary(convertDeciToInt(strBase),strResult);
+                      printf("%s\n", strResult);
                 break;
             case 2: do{
                         printf("Veuillez entrer le nombre Binaire : ");
@@ -388,15 +392,14 @@ int main()
 
                 break;
         }
-
-*/
         printf("\n\n");
-       // choice = getchar();
         printf("\nSouhaitez vous recommencer? y/n \n");
         choice = getch();
-
     }
-   // printf("vous avez quitte la boucle\n");
-    system("exit");
+
+
     return 0;
+
 }
+
+
