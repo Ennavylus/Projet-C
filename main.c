@@ -362,12 +362,11 @@ void header(){
     printf("   /___________________________/ \n\n\n\n");
     printf("\n");
 }
-void whatDoYouWantToConvert(){
-    printf("Dans quelle base souhaitez vous convertir votre nombre? \n");
-    whatBaseDoYouWant();
-    printf("5. convertir dans toute les base\n\n");
-    printf("6. Revenir au menu Principale\n\n");
-}
+/*
+description : allows to print header of programs
+parameter   : ----
+return      : -----
+*/
 void choiceToConvert(int number, char newStr[], char choice, char str[]){
     char choice2 = 'y';
     while(choice2 !='n'){
@@ -375,7 +374,10 @@ void choiceToConvert(int number, char newStr[], char choice, char str[]){
         while((choice >'6')||(choice<'1')){
             header();
             printf("Vous avez saisie le nombre : %s\n\n",str);
-            whatDoYouWantToConvert();
+            printf("Dans quelle base souhaitez vous convertir votre nombre? \n");
+            whatBaseDoYouWant();
+            printf("5. convertir dans toute les base\n\n");
+            printf("6. Revenir au menu Principale\n\n");
             choice = getch();
         }
         if(choice=='6'){
@@ -474,7 +476,7 @@ int main()
                      return 0;
         }
         printf("\n\n");
-        printf("Souhaitez vous au menu principal y/n \n");
+        printf("Souhaitez vous retourner au menu principal y/n \n");
         choice = getch();
     }
     printf("\n\nMerci d'avoir utiliser mon convertisseur\n\n");
