@@ -363,48 +363,57 @@ void header(){
     printf("\n");
 }
 void whatDoYouWantToConvert(){
-    printf("Dans quelle base souhaitez vous convertir votre nombre? :");
+    printf("Dans quelle base souhaitez vous convertir votre nombre? \n");
     whatBaseDoYouWant();
     printf("5. convertir dans toute les base\n\n");
     printf("6. Revenir au menu Principale\n");
 }
-void choiceToConvert(int number, char newStr[], char choice, ){
+void choiceToConvert(int number, char newStr[], char choice, char str[]){
     char choice2 = 'y';
-    while(choice2 !='n'){
+    while(choice2 !='n'|| choice2 == 'y'){
+        while((choice >'6')||(choice<'1')){
+            header();
+            printf("Vous avez saisie le nombre : %s\n\n",str);
+            whatDoYouWantToConvert();
+            choice = getch();
+        }
         switch (choice){
             case '1' : convertIntToDecimal(number, newStr);
-                    printf("Nombre decimal : %s",newStr);
-                    printf("Souhaitez reconvertir le meme nombre de base? y/n\n");
-                    choice2 = getch();             
-                break;
-            case '2' : convertIntToBinary(number, newStr);
-                    printf("Nombre Binaire : %s",newStr);
-                    printf("Souhaitez reconvertir le meme nombre de base? y/n\n");
-                    choice2 = getch();             
-                break;
-            case '3' : convertIntToOctal(number, newStr);
-                    printf("Nombre Octal : %s",newStr);
-                    printf("Souhaitez reconvertir le meme nombre de base? y/n\n");
-                    choice2 = getch();                    
-                break;
-            case '4' : convertIntToHexa(number, newStr);
-                    printf("Nombre Hexadecimal : %s",newStr);
+                    printf("Nombre decimal : %s\n",newStr);
                     printf("Souhaitez reconvertir le meme nombre de base? y/n\n");
                     choice2 = getch();
                 break;
-            case '5' :
-                    convertIntToDecimal(number, newStr);
-                    printf("Nombre decimal : %s",newStr);
-                    convertIntToBinary(number, newStr);
-                    printf("Nombre Binaire : %s",newStr);
-                    convertIntToOctal(number, newStr);
-                    printf("Nombre Octal : %s",newStr);
-                    convertIntToHexa(number, newStr);
-                    printf("Nombre Hexadecimal : %s",newStr);
-    
+            case '2' : convertIntToBinary(number, newStr);
+                    printf("Nombre Binaire : %s\n",newStr);
+                    printf("Souhaitez reconvertir le meme nombre de base? y/n\n");
+                    choice2 = getch();
                 break;
-            case '6' :
-                break;         
+            case '3' : convertIntToOctal(number, newStr);
+                    printf("Nombre Octal : %s\n",newStr);
+                    printf("Souhaitez reconvertir le meme nombre de base? y/n\n");
+                    choice2 = getch();
+                break;
+            case '4' : convertIntToHexa(number, newStr);
+                    printf("Nombre Hexadecimal : %s\n",newStr);
+                    printf("Souhaitez reconvertir le meme nombre de base? y/n\n");
+                    choice2 = getch();
+                break;
+            case '5' : convertIntToDecimal(number, newStr);
+                    printf("Nombre decimal : %s\n",newStr);
+                    convertIntToBinary(number, newStr);
+                    printf("Nombre Binaire : %s\n",newStr);
+                    convertIntToOctal(number, newStr);
+                    printf("Nombre Octal : %s\n",newStr);
+                    convertIntToHexa(number, newStr);
+                    printf("Nombre Hexadecimal : %s\n",newStr);
+                    choice2 = 'n';
+                break;
+            default:
+                break;
+        }
+        choice = 'y';
+        if(choice=='6'){
+            break;
         }
     }
 
@@ -418,7 +427,7 @@ int main()
 
 
     while(choice !='n'){
-        while(choice =='6'){
+        do{
             while((choice >'4')||(choice<'1')){
                 header();
                 printf("Bienvenue dans le convertisseur.\n\n");
@@ -448,11 +457,8 @@ int main()
                         printf("Veuillez entrer le nombre Binaire : ");
                         scanf(" %[^\n]s ",strBase);
                         }while(!binaryTest(strBase));
-                        while((choice >'6')||(choice<'1')){
-                            whatDoYouWantToConvert();
-                            choice = getch();                        
-                        }
-                        choiceToConvert(convertBinToInt(strBase),strResult,choice);
+                        choice = 'y';
+                        choiceToConvert(convertBinToInt(strBase),strResult,choice,strBase);
 
                     break;
                 case '3': do{
@@ -472,7 +478,8 @@ int main()
 
                     break;
             }
-        }
+        }while(choice =='6');
+        header();
         printf("\n\n");
         printf("\nSouhaitez vous essayer une autre conversion? y/n \n");
         choice = getch();
