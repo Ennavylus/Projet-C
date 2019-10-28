@@ -365,22 +365,28 @@ void header(){
 /*
 description : allows to display according to the chosen base
 parameter   : char choice : to define the chosen base
-            : char str[] : the number given previously
+            : char newStrPrint[] : rewrite in the new string the number with the
+              right space between the numbers
+            : int number : the number given previously convert in interger type
 return      : display the number with the chosen base
 */
-void viewNumberChoice(char choice, char str[]){
+void viewNumberChoice(char choice, char newStrPrint[],int number){
     printf("Le nombre ");
     switch(choice){
         case '1': printf("decimale");
+            convertIntToDecimal(number, newStrPrint);
             break;
         case '2': printf("binaire");
+            convertIntToBinary(number, newStrPrint);
             break;
         case '3': printf("octal");
+            convertIntToOctal(number, newStrPrint);
             break;
         case '4': printf("Hexadecimal");
+            convertIntToHexa(number, newStrPrint);
             break;
     }
-    printf(" a convertir est %s\n\n",str);
+    printf(" a convertir est %s\n\n",newStrPrint);
 }
 /*
 description : allows to display according to the chosen base
@@ -390,18 +396,18 @@ parameter   : int number : the given number converted to decimal
             : char str[] : the number given above
 return      : display a sub menu to choose the conversion and display result with newStr
 */
-void choiceToConvert(int number, char newStr[], char choice, char str[]){
+void choiceToConvert( char strPrint[], int number, char newStr[], char choice){
     char choice2 = 'y';
     char t = 'y';
     while(choice2 !='n'){
         t = 'y';
         while((t >'6')||(t<'1')){
             header();
-            viewNumberChoice(choice,str);
+            viewNumberChoice(choice,strPrint,number);
             printf("Dans quelle base souhaitez vous convertir votre nombre? \n");
             whatBaseDoYouWant();
             printf("5. convertir dans toute les base\n\n");
-            printf("6. Revenir au menu Principale\n\n");
+            printf("6. Annuler / Retour\n\n");
             t = getch();
         }
         if(t=='6'){
@@ -409,35 +415,35 @@ void choiceToConvert(int number, char newStr[], char choice, char str[]){
         }
         switch (t){
             case '1' : header();
-                viewNumberChoice(choice,str);
+                viewNumberChoice(choice,strPrint, number);
                 convertIntToDecimal(number, newStr);
                 printf("En nombre decimal il correspond a : %s\n\n",newStr);
                 printf("Souhaitez reconvertir le meme nombre de base? y/n\n");
                 choice2 = getch();
                 break;
             case '2' : header();
-                viewNumberChoice(choice,str);
+                viewNumberChoice(choice,strPrint, number);
                 convertIntToBinary(number, newStr);
                 printf("En nombre Binaire il correspond a : %s\n\n",newStr);
                 printf("Souhaitez reconvertir le meme nombre de base? y/n\n");
                 choice2 = getch();
                 break;
             case '3' : header();
-                viewNumberChoice(choice,str);
+                viewNumberChoice(choice,strPrint, number);
                 convertIntToOctal(number, newStr);
                 printf("En nombre Octal il correspond a  : %s\n\n",newStr);
                 printf("Souhaitez reconvertir le meme nombre de base? y/n\n");
                 choice2 = getch();
                 break;
             case '4' : header();
-                viewNumberChoice(choice,str);
+                viewNumberChoice(choice,strPrint, number);
                 convertIntToHexa(number, newStr);
                 printf("En Nombre Hexadecimal il correspond a : %s\n\n",newStr);
                 printf("Souhaitez reconvertir le meme nombre de base? y/n\n");
                 choice2 = getch();
                 break;
             case '5' : header();
-                viewNumberChoice(choice,str);
+                viewNumberChoice(choice,strPrint, number);
                 convertIntToDecimal(number, newStr);
                 printf("Nombre decimal : %s\n",newStr);
                 convertIntToBinary(number, newStr);
@@ -458,9 +464,12 @@ int main()
     char menu = 'n';
     char strBase[N] = "";
     char strResult[N]= "";
+    char strPrint[N]= "";
 
 
     while(choice !='n'){
+        menu = 'n';
+        choice = 'y';
         while((choice >'4')||(choice<'0')){
             header();
             printf("Bienvenue dans le menu principale du convertisseur.\n\n");
@@ -487,7 +496,7 @@ int main()
                     if(menu== 'y'){
                         break;
                     }
-                    choiceToConvert(convertDeciToInt(strBase),strResult,choice,strBase);
+                    choiceToConvert(strPrint,convertDeciToInt(strBase),strResult,choice);
                 break;
             case '2': do{
                         header();
@@ -506,7 +515,7 @@ int main()
                     if(menu== 'y'){
                         break;
                     }
-                    choiceToConvert(convertBinToInt(strBase),strResult,choice,strBase);
+                    choiceToConvert(strPrint,convertBinToInt(strBase),strResult,choice);
                 break;
             case '3': do{
                         header();
@@ -525,7 +534,7 @@ int main()
                     if(menu== 'y'){
                         break;
                     }
-                    choiceToConvert(convertOctalToInt(strBase),strResult,choice,strBase);
+                    choiceToConvert(strPrint,convertOctalToInt(strBase),strResult,choice);
                 break;
             case '4': do{
                         header();
@@ -544,7 +553,7 @@ int main()
                     if(menu== 'y'){
                         break;
                     }
-                    choiceToConvert(convertHexaToInt(strBase),strResult,choice,strBase);
+                    choiceToConvert(strPrint,convertHexaToInt(strBase),strResult,choice);
                 break;
             case '0': printf("\n\nMerci d'avoir utiliser mon convertisseur\n\n");
             system("pause");
@@ -554,8 +563,11 @@ int main()
         if(menu != 'y'){
             printf("Souhaitez vous retourner au menu principal y/n \n");
             choice = getch();
+            //if(choice== 'n'){
+            //    break;
+            //}
         }
-        choice = 'y';
+
 
     }
     printf("\n\nMerci d'avoir utiliser mon convertisseur\n\n");
