@@ -129,16 +129,15 @@ return      :
 void convertIntToDecimal(int number, char dec[]){
     dec[1]= '\0';
     dec[0]= ' ';
-    int r =number;
     int maxsize =4;
-    while(r>0){
-        int t = r%10;
-        r /=10;
-        addFisrt(dec, intToChar(t));
+    while(number>0){
         if(chainSize(dec)== maxsize){
             addFisrt(dec, ' ');
             maxsize+=4;
         }
+        int t = number%10;
+        number /=10;
+        addFisrt(dec, intToChar(t));
     }
 }
 /*
@@ -150,20 +149,15 @@ return      :
 void convertIntToBinary(int number, char bin[]){
     bin[1]= '\0';
     bin[0]= ' ';
-    int r =number;
     int maxsize =5;
-    while(r>0){
+    while(number>0){
         if(chainSize(bin)== maxsize){
             addFisrt(bin, ' ');
             maxsize+=5;
         }
-        int t = r%2;
-        r /=2;
+        int t = number%2;
+        number /=2;
         addFisrt(bin, intToChar(t));
-       // if(chainSize(bin)== maxsize){
-         //   addFisrt(bin, ' ');
-         //   maxsize+=5;
-
     }
 }
 /*
@@ -175,16 +169,15 @@ return      :
 void convertIntToOctal(int number, char octal[]){
     octal[1]= '\0';
     octal[0]= ' ';
-    int r =number;
     int maxsize =4;
-    while(r>0){
-        int t = r%8;
-        r /=8;
-        addFisrt(octal, intToChar(t));
+    while(number>0){
         if(chainSize(octal)== maxsize){
             addFisrt(octal, ' ');
             maxsize+=4;
         }
+        int t = number%8;
+        number /=8;
+        addFisrt(octal, intToChar(t));
     }
 }
 /*
@@ -198,14 +191,14 @@ void convertIntToHexa(int number, char hexa[]){
     hexa[0]= ' ';
     int r =number;
     int maxsize =5;
-    while(r>0){
-        int t = r%16;
-        r /=16;
-        addFisrt(hexa, intToChar(t));
+    while(number>0){
         if(chainSize(hexa)== maxsize){
             addFisrt(hexa, ' ');
             maxsize+=5;
         }
+        int t = number%16;
+        number /=16;
+        addFisrt(hexa, intToChar(t));
     }
 }
 /*
@@ -262,7 +255,7 @@ int convertBinToInt(char bin[]){
     for(int i = 0; i<chainSize(bin);i++){
         nbsomme += charToInt(bin[i])*power(2,i);
     }
-    digitInverse(bin,chainSize(bin));
+    //digitInverse(bin,chainSize(bin));
     return nbsomme;
 }
 /*
@@ -573,7 +566,6 @@ int main()
     printf("\n\nMerci d'avoir utiliser mon convertisseur\n\n");
     system("pause");
     return 0;
-
 }
 
 
