@@ -212,7 +212,6 @@ int convertDeciToInt(char deci[]){
     for(int i = 0; i<chainSize(deci);i++){
         nbsomme += charToInt(deci[i])*power(10,i);
     }
-    digitInverse(deci,chainSize(deci));
     return nbsomme;
 }
 /*
@@ -226,7 +225,6 @@ int convertHexaToInt(char hexa[]){
     for(int i = 0; i<chainSize(hexa);i++){
         nbsomme += charToInt(hexa[i])*power(16,i);
     }
-    digitInverse(hexa,chainSize(hexa));
     return nbsomme;
 }
 /*
@@ -240,7 +238,6 @@ int convertOctalToInt(char octa[]){
     for(int i = 0; i<chainSize(octa);i++){
         nbsomme += charToInt(octa[i])*power(8,i);
     }
-    digitInverse(octa,chainSize(octa));
     return nbsomme;
 }
 /*
@@ -255,7 +252,6 @@ int convertBinToInt(char bin[]){
     for(int i = 0; i<chainSize(bin);i++){
         nbsomme += charToInt(bin[i])*power(2,i);
     }
-    //digitInverse(bin,chainSize(bin));
     return nbsomme;
 }
 /*
@@ -459,7 +455,6 @@ int main()
     char strResult[N]= "";
     char strPrint[N]= "";
 
-
     while(choice !='n'){
         menu = 'n';
         choice = 'y';
@@ -556,12 +551,7 @@ int main()
         if(menu != 'y'){
             printf("Souhaitez vous retourner au menu principal y/n \n");
             choice = getch();
-            //if(choice== 'n'){
-            //    break;
-            //}
         }
-
-
     }
     printf("\n\nMerci d'avoir utiliser mon convertisseur\n\n");
     system("pause");
